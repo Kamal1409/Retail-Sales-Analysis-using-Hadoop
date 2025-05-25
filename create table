@@ -1,0 +1,17 @@
+CREATE DATABASE IF NOT EXISTS retail;
+USE retail;
+
+CREATE EXTERNAL TABLE IF NOT EXISTS sales (
+  InvoiceNo STRING,
+  StockCode STRING,
+  Description STRING,
+  Quantity INT,
+  InvoiceDate STRING,
+  UnitPrice FLOAT,
+  CustomerID STRING,
+  Country STRING
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+LOCATION '/user/retail/';

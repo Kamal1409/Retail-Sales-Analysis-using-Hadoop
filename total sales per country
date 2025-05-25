@@ -1,0 +1,10 @@
+raw = LOAD '/user/retail/OnlineRetail.csv' USING PigStorage(',') 
+  AS (InvoiceNo:chararray, StockCode:chararray, Description:chararray,
+      Quantity:int, InvoiceDate:chararray, UnitPrice:float,
+      CustomerID:chararray, Country:chararray);
+
+data = FILTER raw BY InvoiceNo != 'InvoiceNo';
+sales = FOREACH data GENERATE Country, Quantity * UnitPrice AS Total;
+grouped = GROUP sales BY Country;
+result = FOREACH grouped GENERATE group AS Country, SUM(sales.Total) AS TotalSales;
+DUMP result;

@@ -1,0 +1,11 @@
+data = LOAD '/user/retail/OnlineRetail.csv' USING PigStorage(',')
+  AS (InvoiceNo:chararray, StockCode:chararray, Description:chararray,
+      Quantity:int, InvoiceDate:chararray, UnitPrice:float,
+      CustomerID:chararray, Country:chararray);
+
+clean = FILTER data BY InvoiceNo != 'InvoiceNo';
+grouped = GROUP clean BY Description;
+sales = FOREACH grouped GENERATE group AS Product, SUM(clean.Quantity) AS TotalSold;
+ordered = ORDER sales BY TotalSold DESC;
+top10 = LIMIT ordered 10;
+DUMP top10;

@@ -1,0 +1,5 @@
+USE retail;
+SELECT Country, SUM(Quantity * UnitPrice) AS TotalSales
+FROM sales
+GROUP BY Country
+ORDER BY TotalSales DESC;

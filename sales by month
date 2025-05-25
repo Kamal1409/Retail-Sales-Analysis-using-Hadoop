@@ -1,0 +1,17 @@
+REGISTER piggybank.jar;
+DEFINE ToDate org.apache.pig.piggybank.evaluation.datetime.convert.ToDate();
+DEFINE FormatDate org.apache.pig.piggybank.evaluation.datetime.format.DateTimeToString();
+
+data = LOAD '/user/retail/OnlineRetail.csv' USING PigStorage(',')
+  AS (InvoiceNo:chararray, StockCode:chararray, Description:chararray,
+      Quantity:int, InvoiceDate:chararray, UnitPrice:float,
+      CustomerID:chararray, Country:chararray);
+
+clean = FILTER data BY InvoiceNo != 'InvoiceNo';
+
+dates = FOREACH clean GENERATE ToDate(InvoiceDate, 'MM/dd/yyyy HH:mm') AS date, Quantity, UnitPrice;
+monthsales = FOREACH dates GENERATE FormatDate(date, 'yyyy-MM') AS Month, Quantity * UnitPrice AS Total;
+grouped = GROUP monthsales BY Month;
+result = FOREACH grouped GENERATE group AS Month, SUM(monthsales.Total) AS MonthlySales;
+ORDERED = ORDER result BY Month;
+DUMP ORDERED;

@@ -1,0 +1,7 @@
+USE retail;
+SELECT CustomerID, SUM(Quantity * UnitPrice) AS Spending
+FROM sales
+WHERE CustomerID IS NOT NULL
+GROUP BY CustomerID
+ORDER BY Spending DESC
+LIMIT 10;
