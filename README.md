@@ -4,23 +4,23 @@ Retail Sales Data Analysis Using Hadoop Pig and Hive is a big data project that 
 - **Source:** [UCI Online Retail Dataset](https://archive.ics.uci.edu/ml/datasets/Online+Retail)
 - **Description:** Contains transactions from a UK-based online retailer between 2010 and 2011.
 
-## 🛠️ Tools & Technologies
+## Tools & Technologies
 - Hadoop (HDFS)
 - Apache Pig
 - Apache Hive
 - Python (Data Cleaning)
 - Linux Shell
 
-## 📌 Objective
+## Objective
 - Clean and format retail data
 - Analyze total sales per country
 - Identify top-selling products
 - Evaluate monthly trends and customer spending
 
-## 📂 Project Structure
+## Project Structure
 See folder structure in this repo.
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### 1. Prerequisites
 - Hadoop with HDFS configured
@@ -47,6 +47,6 @@ hive -f hive/country_sales.hql
 
 ---
 
-## 📊 Sample Output
+## Sample Output
 - **Pig**: Total sales per country
 - **Hive**: Top 10 customers based on spending
